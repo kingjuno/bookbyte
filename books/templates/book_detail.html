@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        html,body {
+            height: 93%;
+            color: #fff;
+            font-family: Verdana, sans-serif; margin:0
+        }
+        form{
+            color: #000;
+        }
+    </style>
+    <br>
+    <div class="books_detail">
+        <br>
+        <h2>
+        <a href="{% url 'books:detail' slug=book.url_id user=book.user %}">
+            {{book.title}}
+        </a>
+        </h2>
+        <div class="author">
+            Author: <div style="color:blue;display:inline;">{{book.author}}</div>
+        </div>
+        <p class="date">{{book.date}}</p>
+         <p style="color:white;">{{book.body}}</p>
+        <br><br><br><img src="{{book.thumb.url}}"/>
+        <br>
+        <p>By User : <a href="{% url 'accounts:me' book.user%}">{{book.user}}</a></p>
+        <br><br><h1 style="text-align:center;">Request Book:</h1>
+        <form class="site-form" action="" method='post' enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}   
+            <div class="form-group">
+                {{ form.message }}
+                {{ form.message.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.location }}
+                {{ form.location.errors }}
+            </div>
+            <input class="button" type='submit' value='Create'><br>
+        </form>
+        <br>
+    </div>
+    <br>
+    <script type="text/javascript">
+        document.getElementsByName('location')[0].placeholder='Location';
+        document.getElementsByName('message')[0].placeholder='Message';
+    </script>
+{% endblock %}

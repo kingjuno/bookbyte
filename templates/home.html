@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{%block content %}
+<style>
+    html,body {
+        height: 92%;
+        font-family: Verdana, sans-serif; margin:0
+    }
+</style>
+<body>
+    <div class="books_home">
+        <h1><br>Available Books</h1>
+        <br><br>
+        {% for book in books %}
+        <h2>
+        <a href="{% url 'books:detail' slug=book.url_id user=book.user %}">
+            {{book.title}}
+        </a>
+        <div class="author">
+            by {{book.author}}
+        </div>
+        </h2>
+        <p class="date">{{book.date}}</p>
+        {% comment %} <img src="{{book.thumb.url}}"/> {% endcomment %}
+        <p>{{book.snippets}}</p><hr>
+        {% endfor %}
+        <h1><br>Requested Books</h1>
+        <br><br>
+        {% for book in request %}
+        <h2>
+        <a href="{% url 'request:req_user' slug=book.url_id user=book.user %}">
+            {{book.title}}
+        </a>
+        <div class="author">
+            by {{book.author}}
+        </div>
+        </h2>
+        <p class="date">{{book.date}}</p>
+        {% endfor %}
+        <br>
+    </div>
+    <br>
+</body>
+{% endblock %}

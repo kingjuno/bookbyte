@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{%block content %}
+<style>
+    html,body {
+        height: 92%;
+        font-family: Verdana, sans-serif; margin:0
+    }
+</style>
+<body>
+    <div class="books_home">
+        <h1><br>Notification</h1>
+        <br><br>
+        {% for no in noti %}
+        <h2>
+        <a href="{% url 'accounts:me' no.client%}">{{no.client}}</a> will meet you at {{no.location}} for dealing with the book {{no.bk}}.
+        <br>
+        <p>{{no.message}}</p>
+        <br><hr>
+        {% endfor %}
+    </div>
+    <br>
+</body>
+{% endblock %}

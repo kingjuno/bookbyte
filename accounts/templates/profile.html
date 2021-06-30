@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <style>
+        .container1 {
+        align-items: self-start;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 400px ;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+        "user user user user"
+        "create create request request";
+        min-width: 600px;
+        min-height: 500px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        background-color: rgb(255, 255, 255,0.1);
+        transform:translate(-50%, -50%);
+        }
+
+        .request { 
+            grid-area: request;
+            color: white;
+            text-align:center;
+            padding: 10px;
+            border-style: solid;  
+            margin-left: 5px; 
+            margin-right: 5px;
+            margin-bottom : 10px;
+        }
+
+        .create { 
+            grid-area: create;
+            color: white;
+            text-align:center;
+            padding: 10px;
+            border-style: solid;  
+            margin-right: 5px;  
+            margin-left: 5px;
+            margin-bottom : 0px;
+        }
+
+        .user { 
+            grid-area: user; 
+            font-size:40px;
+            color: white;
+            display: table;
+            text-align:center;
+            border-style: solid;
+            margin-bottom:-5px; 
+            margin-top:10px;
+            vertical-align: middle;
+        }
+
+        .create,.request{
+            min-height:400px;
+            font-weight:bold;
+            font-size:20px;
+        }
+        span {
+            display: table-cell;
+            text-align:center;
+            vertical-align: middle;
+        }
+        #spacer {
+            padding-bottom:10px;
+        }
+    </style>
+    <body>
+        <h1 style="text-align: center;color:white;">User Info</h1>
+
+        <div class="container1">
+            <div class="user"><span>{{user}}</span></div>
+            <div class="request"><div id="spacer">Requested</div>
+            <ul style="text-align:left;">
+                {% for book in req%}
+                <li><a href="{% url 'request:req_user' slug=book.url_id user=book.user %}">{{ book }}</a></li>
+                {%endfor%}
+            </ul>
+            </div>
+            <div class="create"><div id="spacer">Created</div>
+            <ul>
+                {% for book in created%}
+                <li><a href="{% url 'books:detail' slug=book.url_id user=book.user %}">{{ book }}</a></li>
+                {%endfor%}
+            </ul>
+            <div>
+        </div>
+    </body>
+{% endblock content %}

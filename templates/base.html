@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BookByte</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        <nav class="navbar navbar-inverse" style="border-radius:0;margin:0px">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                <a class="navbar-brand" href="/">BookByte</a>
+                </div>
+                <ul class="nav navbar-nav">
+                <li {% if request.resolver_match.url_name == None %}class="active" {% endif %}><a href="/">Home</a></li>
+                <li {% if request.resolver_match.url_name == 'me' %}class="active" {% endif %}><a href="{%url 'accounts:me' user %}">My Profile</a></li>
+                <li {% if request.resolver_match.url_name == 'create' %}class="active" {% endif %}><a href="{%url 'books:create'%}">Create</a></li>
+                <li {% if request.resolver_match.url_name == 'request' %}class="active" {% endif %}><a href="{%url 'request:request'%}">Request</a></li>
+                <li {% if request.resolver_match.url_name == 'not' %}class="active" {% endif %}><a href="{%url 'notification:not'%}">Notification</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'accounts:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+                </ul>
+            </div>
+        </nav>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

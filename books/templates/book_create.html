@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="create-book">
+        <h2 style="color:white;">Add New Book</h2>
+        <form class="site-form" action="{% url 'books:create' %}" method='post' enctype="multipart/form-data">
+             {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-group">
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.author }}
+                {{ form.author.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.body }}
+                {{ form.body.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.url_id }}
+                {{ form.url_id.errors }}
+            </div>
+            <div class="form-group">
+                <label for="thumb" style="margin-right:10px;">Choose a thumbnail: </label>
+                {{ form.thumb }}
+                {{ form.thumb.errors }}
+            </div>
+            <input class="button" type='submit' value='Create'>
+        </form>
+    </div>
+    <script type="text/javascript">
+        document.getElementsByName('title')[0].placeholder='Title';
+        document.getElementsByName('author')[0].placeholder='Author';
+        document.getElementsByName('body')[0].placeholder='Description';
+        document.getElementsByName('url_id')[0].placeholder='id - unique id book';
+    </script>
+{% endblock %}
